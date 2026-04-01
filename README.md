@@ -24,18 +24,20 @@ A custom ordering system built specifically for **Strapify**, a strap and access
 ## Screenshots
 
 ### Authentication Pages
-![Login Page](projects/screenshots/login.png)
-![Forgot Password](projects/screenshots/Forgot%20Password.png)
+![Login Page](screenshots/login.png)
+![Forgot Password](screenshots/Forgot%20Password.png)
 
 ### User Pages
-![Home Page](projects/screenshots/Home%20page.png)
-![Item Page](projects/screenshots/Item%20page.png)
-![Order Page](projects/screenshots/Order%20Page.png)
-![Track Order Page](projects/screenshots/Track%20Order%20Page.png)
-![Logout](projects/screenshots/Log-out.png)
+![Home Page](screenshots/Home%20page.png)
+![Item Page](screenshots/Item%20page.png)
+![Order Page](screenshots/Order%20Page.png)
+![Track Order Page](screenshots/Track%20Order%20Page.png)
+![Logout](screenshots/Log-out.png)
+
 
 ### Admin Panel
-![Admin Dashboard](projects/screenshots/admin-dashboard.png)
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
 
 ## How to Run Locally
 1. Clone this repository
