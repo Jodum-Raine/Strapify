@@ -18,6 +18,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .navbar h2 {
@@ -27,6 +28,8 @@ body {
 .menu {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 .navbar nav a {
@@ -52,7 +55,7 @@ body {
     position: relative;
     padding: 30px;
     min-height: 780px;
-    overflow: visible; /* FIXED for hover */
+    overflow: visible;
 }
 
 /* SECTIONS */
@@ -62,11 +65,9 @@ body {
     left: 0;
     width: 100%;
     padding: 20px 40px;
-
     opacity: 0;
     transform: translateX(100%) scale(0.95);
     transition: opacity 0.5s ease, transform 0.5s ease;
-
     pointer-events: none;
     z-index: 0;
 }
@@ -106,15 +107,8 @@ body {
 }
 
 .logout-btn:hover {
-     background-color: #e04343; 
+    background-color: #e04343;
     transform: scale(1.05);
-}
-
-/* HOME */
-.home-card p {
-    font-size: 22px;
-    margin-bottom: 14px;
-    color: white;
 }
 
 /* GRID */
@@ -124,7 +118,7 @@ body {
     gap: 16px;
 }
 
-/* ITEM CARD (original design retained) */
+/* ITEM CARD */
 .item-card {
     background: rgba(53, 122, 107, 0.95);
     color: white;
@@ -137,10 +131,9 @@ body {
     overflow: hidden;
 }
 
-
 .img-wrapper {
     width: 100%;
-    height: 500px; 
+    height: 500px;
     overflow: hidden;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -152,7 +145,6 @@ body {
     object-fit: cover;
     display: block;
 }
-
 
 .item-card h3 {
     font-size: 22px;
@@ -167,7 +159,6 @@ body {
     padding: 4px 10px;
     border-radius: 999px;
 }
-
 
 #about .card {
     max-width: 900px;
@@ -184,7 +175,6 @@ body {
     font-size: 20px;
     margin-bottom: 14px;
 }
-
 
 #items .item-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -272,7 +262,6 @@ body {
     background: rgba(0,0,0,0.6);
     justify-content: center;
     align-items: center;
-    display: flex;
     z-index: 1000;
 }
 
@@ -323,4 +312,249 @@ body {
     float: right;
     cursor: pointer;
     font-size: 20px;
+}
+
+/* ===== HERO SECTION STYLES ===== */
+.hero-section {
+    background: linear-gradient(135deg, #2c7a6b 0%, #1e5a4f 100%);
+    border-radius: 28px;
+    padding: 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 20px 35px -12px rgba(0,0,0,0.25);
+}
+
+.hero-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.hero-text {
+    flex: 1;
+    min-width: 260px;
+    color: white;
+}
+
+.hero-text h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.hero-text .tagline {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    border-left: 4px solid #ffd966;
+    padding-left: 1rem;
+    color: #fff3cd;
+}
+
+.hero-text p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    opacity: 0.95;
+    max-width: 95%;
+}
+
+.hero-cta {
+    display: inline-flex;
+    gap: 1rem;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    padding: 0.6rem 1.5rem;
+    border-radius: 60px;
+}
+
+.hero-cta span {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: white;
+}
+
+.hero-carousel {
+    flex: 0.8;
+    min-width: 260px;
+    max-width: 380px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 28px;
+    padding: 0.8rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+.carousel-frame {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 1s ease-in-out;
+    border-radius: 16px;
+}
+
+.carousel-slide.active-slide {
+    opacity: 1;
+    z-index: 2;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: rgba(255,255,240,0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active-dot {
+    background: #ffd966;
+    width: 24px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px #ffd966;
+}
+
+.features-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-badge {
+    background: rgba(255,255,245,0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 60px;
+    padding: 0.5rem 1.2rem;
+    font-weight: 500;
+    color: white;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.2s;
+}
+
+.feature-badge:hover {
+    transform: translateY(-2px);
+    background: rgba(255,255,245,0.3);
+}
+
+.feature-badge span {
+    font-size: 1rem;
+}
+
+.home-quote {
+    background: rgba(255,255,245,0.15);
+    border-radius: 20px;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    color: #fef9e6;
+    font-style: italic;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .navbar nav a {
+        margin: 0 8px;
+        font-size: 18px;
+    }
+    
+    .logout-btn {
+        margin-left: 8px;
+    }
+    
+    .hero-text h1 {
+        font-size: 2.2rem;
+    }
+    
+    .hero-text .tagline {
+        font-size: 1.1rem;
+    }
+    
+    .hero-text p {
+        max-width: 100%;
+        font-size: 0.95rem;
+    }
+    
+    .carousel-frame {
+        height: 240px;
+    }
+    
+    .hero-carousel {
+        max-width: 320px;
+    }
+    
+    .hero-section {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .main-content {
+        padding: 15px;
+    }
+    
+    .section {
+        padding: 15px 20px;
+    }
+    
+    .hero-text h1 {
+        font-size: 1.8rem;
+    }
+    
+    .hero-text .tagline {
+        font-size: 1rem;
+    }
+    
+    .feature-badge {
+        padding: 0.4rem 1rem;
+        font-size: 0.75rem;
+    }
+    
+    .carousel-frame {
+        height: 200px;
+    }
+    
+    .hero-carousel {
+        max-width: 280px;
+    }
 }
