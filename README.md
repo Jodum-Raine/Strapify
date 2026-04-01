@@ -41,7 +41,7 @@ A custom ordering system built specifically for **Strapify**, a strap and access
 
 ## How to Run Locally
 1. Clone this repository
-2. Import the database from `database/strapify_db.sql`
+2. Import the database from "login_system(2)"
 3. Update database credentials in `includes/config.php`
 4. Run on localhost
 
