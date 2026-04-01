@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Strapify</title>
 <link rel="stylesheet" href="Dashboard2.css?v=5">
 <style>
@@ -141,34 +141,34 @@
         font-size: 18px;
     }
     /* Items list styling */
-.items-section {
-    margin: 15px 0;
-}
+    .items-section {
+        margin: 15px 0;
+    }
 
-.items-header {
-    cursor: pointer;
-    margin: 10px 0;
-    padding: 10px;
-    background: #f0f0f0;
-    border-radius: 5px;
-    transition: background 0.3s;
-}
+    .items-header {
+        cursor: pointer;
+        margin: 10px 0;
+        padding: 10px;
+        background: #f0f0f0;
+        border-radius: 5px;
+        transition: background 0.3s;
+    }
 
-.items-header:hover {
-    background: #e0e0e0;
-}
+    .items-header:hover {
+        background: #e0e0e0;
+    }
 
-.items-list {
-    margin-top: 10px;
-}
+    .items-list {
+        margin-top: 10px;
+    }
 
-.order-item {
-    transition: transform 0.2s;
-}
+    .order-item {
+        transition: transform 0.2s;
+    }
 
-.order-item:hover {
-    transform: translateX(5px);
-}
+    .order-item:hover {
+        transform: translateX(5px);
+    }
 </style>
 </head>
 <body>
@@ -187,11 +187,40 @@
 
 <main class="main-content">
 
-    <!-- HOME -->
+    <!-- HOME with animated carousel -->
     <section id="home" class="section active">
-        <h1>Home</h1>
-        <div class="card home-card">
-            <p>Welcome to Strapify!</p>
+        <div class="hero-section">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <h1>Style Your Phone<br>Your Way ✨</h1>
+                    <p class="tagline">Express yourself with unique, handcrafted straps</p>
+                    <p>Discover the perfect blend of fashion & function. From Y2K vibes to dreamy pastels — every strap tells your story.</p>
+                    <div class="hero-cta">
+                        <span>📱 Shop now →</span>
+                        <span>🎨 100% handmade</span>
+                    </div>
+                </div>
+                <div class="hero-carousel">
+                    <div class="carousel-frame" id="heroCarouselFrame">
+                        <img class="carousel-slide active-slide" src="pictures/y2k.jpg" alt="Y2K Beaded Strap">
+                        <img class="carousel-slide" src="pictures/cutepasterlPC.jpg" alt="Cute Pastel Strap">
+                        <img class="carousel-slide" src="pictures/flower.jpg" alt="Flower Bead Strap">
+                        <img class="carousel-slide" src="pictures/ocean.jpg" alt="Ocean Pearl Strap">
+                        <img class="carousel-slide" src="pictures/star.jpg" alt="Star Bead Strap">
+                        <img class="carousel-slide" src="pictures/coqutte.jpg" alt="Coquette Bow Strap">
+                    </div>
+                    <div class="carousel-dots" id="carouselDots"></div>
+                </div>
+            </div>
+            <div class="features-row">
+                <div class="feature-badge"><span>🌸</span> Premium beads</div>
+                <div class="feature-badge"><span>🚚</span> Fast shipping</div>
+                <div class="feature-badge"><span>💖</span> Loved by 1k+ fans</div>
+                <div class="feature-badge"><span>🛡️</span> Secure checkout</div>
+            </div>
+            <div class="home-quote">
+                “Strapify turned my phone into a statement piece — quality & style!”
+            </div>
         </div>
     </section>
 
@@ -200,7 +229,6 @@
         <h1>Items</h1>
         <div class="items-grid">
 
-            <!-- ITEM TEMPLATE -->
             <article class="item-card">
                 <div class="img-wrapper">
                     <img src="pictures/y2k.jpg" class="item-img" alt="Y2K Beaded Phone Strap">
@@ -338,6 +366,82 @@
 </main>
 
 <script>
+// ----- CAROUSEL LOGIC -----
+const carouselImages = [
+    "pictures/y2k.jpg",
+    "pictures/cutepasterlPC.jpg",
+    "pictures/flower.jpg",
+    "pictures/ocean.jpg",
+    "pictures/star.jpg",
+    "pictures/coqutte.jpg"
+];
+let currentIndex = 0;
+let carouselInterval;
+
+function initCarousel() {
+    const frame = document.getElementById("heroCarouselFrame");
+    if (!frame) return;
+    const slides = frame.querySelectorAll(".carousel-slide");
+    const dotsContainer = document.getElementById("carouselDots");
+    if (!dotsContainer) return;
+    
+    dotsContainer.innerHTML = "";
+    for (let i = 0; i < carouselImages.length; i++) {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (i === currentIndex) dot.classList.add("active-dot");
+        dot.addEventListener("click", () => {
+            goToSlide(i);
+            resetInterval();
+        });
+        dotsContainer.appendChild(dot);
+    }
+    
+    function goToSlide(index) {
+        const allSlides = frame.querySelectorAll(".carousel-slide");
+        allSlides.forEach((slide, i) => {
+            slide.classList.remove("active-slide");
+        });
+        if (allSlides[index]) allSlides[index].classList.add("active-slide");
+        currentIndex = index;
+        const dots = document.querySelectorAll(".dot");
+        dots.forEach((dot, i) => {
+            if (i === currentIndex) dot.classList.add("active-dot");
+            else dot.classList.remove("active-dot");
+        });
+    }
+    
+    function nextSlide() {
+        let next = (currentIndex + 1) % carouselImages.length;
+        goToSlide(next);
+    }
+    
+    function resetInterval() {
+        if (carouselInterval) clearInterval(carouselInterval);
+        carouselInterval = setInterval(nextSlide, 4200);
+    }
+    
+    window.goToSlide = goToSlide;
+    window.resetCarouselInterval = resetInterval;
+    
+    goToSlide(0);
+    resetInterval();
+    
+    const carouselFrameDiv = document.querySelector(".hero-carousel");
+    if (carouselFrameDiv) {
+        carouselFrameDiv.addEventListener("mouseenter", () => {
+            if (carouselInterval) clearInterval(carouselInterval);
+        });
+        carouselFrameDiv.addEventListener("mouseleave", () => {
+            if (carouselInterval) clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                let next = (currentIndex + 1) % carouselImages.length;
+                goToSlide(next);
+            }, 4200);
+        });
+    }
+}
+
 // ----- SECTION SWITCHING -----
 function showSection(sectionId, event) {
     event.preventDefault();
@@ -346,6 +450,16 @@ function showSection(sectionId, event) {
 
     document.querySelectorAll('.menu a').forEach(link => link.classList.remove('active'));
     event.target.classList.add('active');
+    
+    if (sectionId === 'home') {
+        setTimeout(() => {
+            if (!document.querySelector(".carousel-slide.active-slide")) {
+                initCarousel();
+            } else {
+                if (window.resetCarouselInterval) window.resetCarouselInterval();
+            }
+        }, 100);
+    }
 }
 
 // ----- LOGOUT -----
@@ -367,7 +481,6 @@ function addToOrder(product, price, btn) {
 
     const total = price * quantity;
     
-    // Check if product already exists in cart
     const existingItem = orders.find(item => item.product === product);
     
     if (existingItem) {
@@ -434,7 +547,6 @@ function openCheckout() {
     document.getElementById("payment").value = "";
 }
 
-// Confirm checkout - SAVE TO DATABASE
 async function confirmCheckout() {
     const address = document.getElementById("address").value.trim();
     const payment = document.getElementById("payment").value;
@@ -444,10 +556,8 @@ async function confirmCheckout() {
         return;
     }
     
-    // Calculate total
     const totalAmount = orders.reduce((sum, item) => sum + item.total, 0);
     
-    // Prepare order data
     const orderData = {
         orders: orders,
         address: address,
@@ -455,7 +565,6 @@ async function confirmCheckout() {
         total: totalAmount
     };
     
-    // Show loading state on button
     const confirmBtn = event.target;
     const originalText = confirmBtn.innerText;
     confirmBtn.innerText = "Processing...";
@@ -481,12 +590,10 @@ async function confirmCheckout() {
                   "📦 All items will be shipped together.\n" +
                   "You can track your order in 'My Orders' section.");
             
-            // Clear cart
             orders = [];
             showOrders();
             closeCheckout();
             
-            // Refresh to show empty cart
             setTimeout(() => {
                 window.location.reload();
             }, 1000);
@@ -497,126 +604,72 @@ async function confirmCheckout() {
         console.error('Error:', error);
         alert("❌ Network error. Please check your connection and try again.");
     } finally {
-        // Reset button state
         confirmBtn.innerText = originalText;
         confirmBtn.disabled = false;
         confirmBtn.style.opacity = "1";
     }
 }
 
-// Close modal when clicking outside
 window.onclick = (event) => {
     if (event.target === modal) {
         closeCheckout();
     }
 };
 
-// Hide modal on page load
-window.addEventListener('DOMContentLoaded', () => {
-    if (modal) {
-        modal.style.display = "none";
-    }
-    showOrders(); // Initialize empty cart display
-});
-
-// Function to show My Orders section
 async function showMyOrders(event) {
     if (event) event.preventDefault();
     
-    // Switch to my-orders section
     document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
     document.getElementById('my-orders').classList.add('active');
     
-    // Update active menu link
     document.querySelectorAll('.menu a').forEach(link => link.classList.remove('active'));
     event.target.classList.add('active');
     
-    // Fetch and display orders
     await fetchOrders();
 }
 
-// Function to fetch orders from database
 async function fetchOrders() {
     const container = document.getElementById('orders-container');
     container.innerHTML = '<div class="loading">Loading your orders...</div>';
     
     try {
         const response = await fetch('../get_orders.php');
-        
-        // Check if response is ok
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
         const data = await response.json();
         
-        // Check if data is valid
         if (data && data.success) {
             if (data.orders && data.orders.length > 0) {
                 displayOrders(data.orders);
             } else {
-                container.innerHTML = `
-                    <div class="no-orders">
-                        <p>🛍️ You haven't placed any orders yet.</p>
-                        <p>Go to the Items section to start shopping!</p>
-                    </div>
-                `;
+                container.innerHTML = `<div class="no-orders"><p>🛍️ You haven't placed any orders yet.</p><p>Go to the Items section to start shopping!</p></div>`;
             }
         } else {
-            container.innerHTML = `
-                <div class="no-orders">
-                    <p>❌ ${data.message || 'Error loading orders'}</p>
-                </div>
-            `;
+            container.innerHTML = `<div class="no-orders"><p>❌ ${data.message || 'Error loading orders'}</p></div>`;
         }
     } catch (error) {
-        console.error('Error details:', error);
-        container.innerHTML = `
-            <div class="no-orders">
-                <p>❌ Network error. Please try again.</p>
-                <p style="font-size: 12px;">Error: ${error.message}</p>
-            </div>
-        `;
+        container.innerHTML = `<div class="no-orders"><p>❌ Network error. Please try again.</p><p style="font-size: 12px;">Error: ${error.message}</p></div>`;
     }
 }
 
-// Function to display orders (always show items)
-function displayOrders(orders) {
+function displayOrders(ordersList) {
     const container = document.getElementById('orders-container');
     container.innerHTML = '';
     
-    orders.forEach(order => {
+    ordersList.forEach(order => {
         const orderCard = document.createElement('div');
         orderCard.className = 'order-card';
-        
-        // Create items list HTML
         let itemsHtml = '';
         
         if (order.items && order.items.length > 0) {
-            itemsHtml = `
-                <div class="items-section">
-                    <div style="margin: 10px 0 5px 0; padding: 8px; background: #f0f0f0; border-radius: 5px;">
-                        📦 <strong>${order.item_count} item(s)</strong> in this order:
-                    </div>
-            `;
-            
+            itemsHtml = `<div class="items-section"><div style="margin: 10px 0 5px 0; padding: 8px; background: #f0f0f0; border-radius: 5px;">📦 <strong>${order.item_count} item(s)</strong> in this order:</div>`;
             order.items.forEach(item => {
-                itemsHtml += `
-                    <div class="order-item" style="border-left: 3px solid #40a99b; margin-bottom: 10px;">
-                        <div class="order-item-info">
-                            <div>
-                                <strong>${escapeHtml(item.product_name)}</strong>
-                                <br>
-                                <small>Quantity: ${item.quantity} × ₱${parseFloat(item.price).toFixed(2)}</small>
-                            </div>
-                            <div style="font-weight: bold; color: #28a745;">
-                                ₱${parseFloat(item.total).toFixed(2)}
-                            </div>
-                        </div>
-                    </div>
-                `;
+                itemsHtml += `<div class="order-item" style="border-left: 3px solid #40a99b; margin-bottom: 10px;">
+                                <div class="order-item-info">
+                                    <div><strong>${escapeHtml(item.product_name)}</strong><br><small>Quantity: ${item.quantity} × ₱${parseFloat(item.price).toFixed(2)}</small></div>
+                                    <div style="font-weight: bold; color: #28a745;">₱${parseFloat(item.total).toFixed(2)}</div>
+                                </div>
+                            </div>`;
             });
-            
             itemsHtml += `</div>`;
         }
         
@@ -624,33 +677,28 @@ function displayOrders(orders) {
             <div class="order-header">
                 <span class="order-id">Receipt #${order.id}</span>
                 <span class="order-date">📅 ${new Date(order.created_at).toLocaleDateString()} ${new Date(order.created_at).toLocaleTimeString()}</span>
-                <span class="status status-${order.status.toLowerCase()}">
-                    ${order.status}
-                </span>
+                <span class="status status-${order.status.toLowerCase()}">${order.status}</span>
             </div>
-            
             ${itemsHtml}
-            
-            <div class="order-total">
-                <strong>Total: ₱${order.total_amount.toFixed(2)}</strong>
-            </div>
-            
-            <div class="shipping-info">
-                <strong>📍 Address:</strong> ${escapeHtml(order.address)}<br>
-                <strong>💳 Payment:</strong> ${escapeHtml(order.payment_method)}
-            </div>
+            <div class="order-total"><strong>Total: ₱${order.total_amount.toFixed(2)}</strong></div>
+            <div class="shipping-info"><strong>📍 Address:</strong> ${escapeHtml(order.address)}<br><strong>💳 Payment:</strong> ${escapeHtml(order.payment_method)}</div>
         `;
-        
         container.appendChild(orderCard);
     });
 }
-// Helper function to escape HTML
+
 function escapeHtml(text) {
     if (!text) return '';
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
+
+window.addEventListener('DOMContentLoaded', () => {
+    if (modal) modal.style.display = "none";
+    showOrders();
+    initCarousel();
+});
 </script>
 </body>
 </html>
